@@ -63,6 +63,7 @@
         el = document.createElement('video');
         el.src = item.src;
         el.autoplay = true;
+        el.muted =true;
         el.onended = next;
       }
       else if (item.type === 'iframe') {
