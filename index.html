@@ -32,8 +32,6 @@
 <body>
   <div id="container"></div>
   <script>
-    // URL to your playlist file
-
   const PLAYLIST_URL = 'playlist.json';
   let items = [], idx = 0;
 
@@ -46,45 +44,6 @@
     }
   }
 
-  async function showItem(i) {
-    const container = document.getElementById('container');
-    const prev = container.firstChild;
-    const item = items[i];
-    let el;
-
-    // create the new slide
-	if (item.type === 'image') {
-	  el = document.createElement('img');
-	}
-	else if (item.type === 'video') {
-	  el = document.createElement('video');
-	  el.src = item.src;
-	  el.autoplay = true;
-	  el.muted = true;
-	  el.playsInline = true;
-	  el.onended = () => fadeOut(el, next);
-	}
-	else if (item.type === 'iframe') {
-	  el = document.createElement('iframe');
-	}
-	
-	el.classList.add('fade');
-	container.appendChild(el);
-	
-	// fade in
-	void el.offsetWidth;
-	el.style.opacity = 1;
-	
-	// start video playback
-	if (item.type === 'video') {
-	  el.play().catch(err => console.warn('Video play prevented:', err));
-	}
-    // remove previous after fade-out
-    if (prev) {
-      setTimeout(() => container.removeChild(prev), 1000);
-    }
-  }
-
   function fadeOut(el, callback) {
     el.style.opacity = 0;
     setTimeout(callback, 1000);
@@ -93,6 +52,50 @@
   function next() {
     idx = (idx + 1) % items.length;
     showItem(idx);
+  }
+
+  async function showItem(i) {
+    const container = document.getElementById('container');
+    const prev = container.firstChild;
+    const item = items[i];
+    let el;
+
+    if (item.type === 'image') {
+      el = document.createElement('img');
+    } else if (item.type === 'video') {
+      el = document.createElement('video');
+      el.src = item.src;
+      el.autoplay = true;
+      el.muted = true;
+      el.playsInline = true;
+      el.onended = () => fadeOut(el, next);
+    } else if (item.type === 'iframe') {
+      el = document.createElement('iframe');
+      el.src = item.src;
+    }
+
+    el.classList.add('fade');
+    container.appendChild(el);
+
+    // fade in
+    void el.offsetWidth;
+    el.style.opacity = 1;
+
+    // start video playback explicitly
+    if (item.type === 'video') {
+      el.play().catch(() => {/*ignored*/});
+    }
+
+    // schedule fade-out for images/iframes
+    if (item.type !== 'video') {
+      const displayTime = item.duration ?? 10000;
+      setTimeout(() => fadeOut(el, next), displayTime);
+    }
+
+    // remove the previous slide after it fades
+    if (prev) {
+      setTimeout(() => container.removeChild(prev), 1000);
+    }
   }
 
   async function start() {
