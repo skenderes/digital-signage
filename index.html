@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Digital Signage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      height: 100%;
+      overflow: hidden;
+    }
+    #container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+    img, video, iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;
+      background: #000;
+    }
+    video {
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="container"></div>
+  <script>
+    // URL to your playlist file
+    const PLAYLIST_URL = 'playlist.json';
+
+    let items = [];
+    let idx = 0;
+
+    // Fetch the JSON playlist
+    async function fetchPlaylist() {
+      try {
+        const res = await fetch(PLAYLIST_URL, { cache: 'no-cache' });
+        items = await res.json();
+      } catch (e) {
+        console.error('Failed to load playlist:', e);
+      }
+    }
+
+    // Display the item at index i
+    function showItem(i) {
+      const container = document.getElementById('container');
+      container.innerHTML = '';
+      const item = items[i];
+      let el;
+
+      if (item.type === 'image') {
+        el = document.createElement('img');
+        el.src = item.src;
+      }
+      else if (item.type === 'video') {
+        el = document.createElement('video');
+        el.src = item.src;
+        el.autoplay = true;
+        el.onended = next;
+      }
+      else if (item.type === 'iframe') {
+        el = document.createElement('iframe');
+        el.src = item.src;
+      }
+
+      container.appendChild(el);
+
+      // advance after duration for non-video
+      if (item.type !== 'video') {
+        const delay = item.duration ?? 10000;
+        setTimeout(next, delay);
+      }
+    }
+
+    // Advance to the next slide
+    function next() {
+      idx = (idx + 1) % items.length;
+      showItem(idx);
+    }
+
+    // Initialize playback
+    async function start() {
+      await fetchPlaylist();
+      if (!items.length) {
+        console.error('Playlist is empty');
+        return;
+      }
+      showItem(0);
+      // Refresh playlist every 5 minutes
+      setInterval(fetchPlaylist, 5 * 60 * 1000);
+    }
+
+    start();
+  </script>
+</body>
+</html>
