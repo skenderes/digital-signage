@@ -78,30 +78,22 @@
 		el = document.createElement('iframe');
 		el.src = item.src;
 	  }
-	
+	  // 2) Add fade classes and append
 	  el.classList.add('fade');
 	  container.appendChild(el);
 	
-	  // 2) Trigger the fade-in
+	  // 3) Trigger the fade-in
 	  void el.offsetWidth;
-	  el.style.opacity = 1;
+	  el.style.add('visible');
 	
-	  // 3) Start video playback explicitly
-	  if (item.type === 'video') {
-		el.play().catch(() => {
-		  console.warn('Video play was prevented; user interaction required.');
-		});
-	  }
-	  // 4) For images & iframes, schedule the fade-out after duration
-	  else {
-		const displayTime = item.duration ?? 10000;
-		setTimeout(() => fadeOut(el, next), displayTime);
-	  }
-	
-	  // 5) Remove the previous slide once it’s done fading
-	  if (prev) {
-		setTimeout(() => container.removeChild(prev), 1000);
-	  }
+	  // 4) Start playback or schedule timeout
+      if (item.type === 'video') {
+        el.play().catch(() => {});
+      } else {
+        setTimeout(() => fadeOut(el, next), item.duration ?? 10000);
+      }
+	  // 5) Clean up previous slide
+      if (prev) setTimeout(() => container.removeChild(prev), 1000);
 	}
 
   async function start() {
