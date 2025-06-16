@@ -33,88 +33,77 @@
   <div id="container"></div>
   <script>
     // URL to your playlist file
-    const PLAYLIST_URL = 'playlist.json';
+    <script>
+  const PLAYLIST_URL = 'playlist.json';
+  let items = [], idx = 0;
 
-    let items = [];
-    let idx = 0;
+  async function fetchPlaylist() {
+    try {
+      const res = await fetch(PLAYLIST_URL, { cache: 'no-cache' });
+      items = await res.json();
+    } catch (e) {
+      console.error('Failed to load playlist:', e);
+    }
+  }
 
-    // Fetch the JSON playlist
-    async function fetchPlaylist() {
-      try {
-        const res = await fetch(PLAYLIST_URL, { cache: 'no-cache' });
-        items = await res.json();
-      } catch (e) {
-        console.error('Failed to load playlist:', e);
-      }
+  async function showItem(i) {
+    const container = document.getElementById('container');
+    const prev = container.firstChild;
+    const item = items[i];
+    let el;
+
+    if (item.type === 'image') {
+      el = document.createElement('img');
+    } else if (item.type === 'video') {
+      el = document.createElement('video');
+      el.muted = true;
+      el.playsInline = true;
+      el.onended = () => fadeOut(el, next);
+    } else if (item.type === 'iframe') {
+      el = document.createElement('iframe');
     }
 
-    // Display the item at index i
-	async function showItem(i) {
-	  const container = document.getElementById('container');
-	  const prev = container.firstChild;
-	  const item = items[i];
-	  let el;
-	
-	  // create the new slide
-	  if (item.type === 'image') {
-		el = document.createElement('img');
-	  }
-	  else if (item.type === 'video') {
-		el = document.createElement('video');
-		el.muted = true;
-		el.playsInline = true;
-		el.onended = () => fadeOut(el, next);
-	  }
-	  else if (item.type === 'iframe') {
-		el = document.createElement('iframe');
-	  }
-	
-	  el.src = item.src;
-	  el.classList.add('fade');
-	  container.appendChild(el);
-	
-	  // trigger fade-in
-	  // forcing a reflow so the transition applies
-	  void el.offsetWidth;
-	  el.style.opacity = 1;
-	
-	  // schedule fade-out for non-video slides
-	  if (item.type !== 'video') {
-		const displayTime = item.duration ?? 10000;
-		setTimeout(() => fadeOut(el, next), displayTime);
-	  }
-	
-	  // optionally remove the previous slide
-	  if (prev) {
-		// let it finish fading out before removing
-		setTimeout(() => container.removeChild(prev), 1000);
-	  }
-	}
-	
-	function fadeOut(el, callback) {
-	  el.style.opacity = 0;
-	  // wait for the CSS transition to finish (1s), then advance
-	  setTimeout(callback, 1000);
-	}
-	
-	function next() {
-	  idx = (idx + 1) % items.length;
-	  showItem(idx);
-	}
+    el.src = item.src;
+    el.classList.add('fade');
+    container.appendChild(el);
 
-    // Initialize playback
-    async function start() {
-      await fetchPlaylist();
-      if (!items.length) {
-        console.error('Playlist is empty');
-        return;
-      }
-      showItem(0);
-      // Refresh playlist every 5 minutes
-      setInterval(fetchPlaylist, 5 * 60 * 1000);
+    // fade in
+    void el.offsetWidth;
+    el.style.opacity = 1;
+
+    // schedule fade-out for non-video
+    if (item.type !== 'video') {
+      const displayTime = item.duration ?? 10000;
+      setTimeout(() => fadeOut(el, next), displayTime);
     }
 
-    start();
-  </script>
+    // remove previous after fade-out
+    if (prev) {
+      setTimeout(() => container.removeChild(prev), 1000);
+    }
+  }
+
+  function fadeOut(el, callback) {
+    el.style.opacity = 0;
+    setTimeout(callback, 1000);
+  }
+
+  function next() {
+    idx = (idx + 1) % items.length;
+    showItem(idx);
+  }
+
+  async function start() {
+    await fetchPlaylist();
+    if (!items.length) {
+      console.error('Playlist is empty');
+      return;
+    }
+    showItem(0);
+    setInterval(fetchPlaylist, 5 * 60 * 1000);
+  }
+
+  start();
+</script>
 </body>
 </html>
