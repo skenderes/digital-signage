@@ -1,0 +1,11 @@
+[
+  {
+    "type": "video",
+    "src": "assets/GoFurtherIUIndianapolis.mp4"
+  },
+  {
+    "type": "image",
+    "src": "GeoMonitor_S25.png",
+    "duration": 10000
+  }
+]
