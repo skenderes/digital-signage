@@ -49,29 +49,58 @@
     }
 
     // Display the item at index i
-    function showItem(i) {
-      const container = document.getElementById('container');
-      container.innerHTML = '';
-      const item = items[i];
-      let el;
-
-      if (item.type === 'image') {
-        el = document.createElement('img');
-        el.src = item.src;
-      }
-      else if (item.type === 'video') {
-        el = document.createElement('video');
-        el.src = item.src;
-        el.autoplay = true;
-        el.muted =true;
-        el.onended = next;
-      }
-      else if (item.type === 'iframe') {
-        el = document.createElement('iframe');
-        el.src = item.src;
-      }
-
-      container.appendChild(el);
+	async function showItem(i) {
+	  const container = document.getElementById('container');
+	  const prev = container.firstChild;
+	  const item = items[i];
+	  let el;
+	
+	  // create the new slide
+	  if (item.type === 'image') {
+		el = document.createElement('img');
+	  }
+	  else if (item.type === 'video') {
+		el = document.createElement('video');
+		el.muted = true;
+		el.playsInline = true;
+		el.onended = () => fadeOut(el, next);
+	  }
+	  else if (item.type === 'iframe') {
+		el = document.createElement('iframe');
+	  }
+	
+	  el.src = item.src;
+	  el.classList.add('fade');
+	  container.appendChild(el);
+	
+	  // trigger fade-in
+	  // forcing a reflow so the transition applies
+	  void el.offsetWidth;
+	  el.style.opacity = 1;
+	
+	  // schedule fade-out for non-video slides
+	  if (item.type !== 'video') {
+		const displayTime = item.duration ?? 10000;
+		setTimeout(() => fadeOut(el, next), displayTime);
+	  }
+	
+	  // optionally remove the previous slide
+	  if (prev) {
+		// let it finish fading out before removing
+		setTimeout(() => container.removeChild(prev), 1000);
+	  }
+	}
+	
+	function fadeOut(el, callback) {
+	  el.style.opacity = 0;
+	  // wait for the CSS transition to finish (1s), then advance
+	  setTimeout(callback, 1000);
+	}
+	
+	function next() {
+	  idx = (idx + 1) % items.length;
+	  showItem(idx);
+	}
 
       // advance after duration for non-video
       if (item.type !== 'video') {
