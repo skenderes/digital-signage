@@ -50,7 +50,7 @@
   }
 
   function fadeOut(el, callback) {
-    el.style.opacity = 0;
+    el.classList.remove('visible');
     setTimeout(callback, 2000);
   }
 
@@ -89,7 +89,7 @@
 	
 	  // 3) Trigger the fade-in
 	  void el.offsetWidth;
-	  el.style.add('visible');
+	  el.classList.add('visible');
 	
 	  // 4) Start playback or schedule timeout
       if (item.type === 'video') {
