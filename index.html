@@ -52,31 +52,33 @@
     const item = items[i];
     let el;
 
-    if (item.type === 'image') {
-      el = document.createElement('img');
-    } else if (item.type === 'video') {
-      el = document.createElement('video');
-      el.muted = true;
-      el.playsInline = true;
-      el.onended = () => fadeOut(el, next);
-    } else if (item.type === 'iframe') {
-      el = document.createElement('iframe');
-    }
-
-    el.src = item.src;
-    el.classList.add('fade');
-    container.appendChild(el);
-
-    // fade in
-    void el.offsetWidth;
-    el.style.opacity = 1;
-
-    // schedule fade-out for non-video
-    if (item.type !== 'video') {
-      const displayTime = item.duration ?? 10000;
-      setTimeout(() => fadeOut(el, next), displayTime);
-    }
-
+    // create the new slide
+	if (item.type === 'image') {
+	  el = document.createElement('img');
+	}
+	else if (item.type === 'video') {
+	  el = document.createElement('video');
+	  el.src = item.src;
+	  el.autoplay = true;
+	  el.muted = true;
+	  el.playsInline = true;
+	  el.onended = () => fadeOut(el, next);
+	}
+	else if (item.type === 'iframe') {
+	  el = document.createElement('iframe');
+	}
+	
+	el.classList.add('fade');
+	container.appendChild(el);
+	
+	// fade in
+	void el.offsetWidth;
+	el.style.opacity = 1;
+	
+	// start video playback
+	if (item.type === 'video') {
+	  el.play().catch(err => console.warn('Video play prevented:', err));
+	}
     // remove previous after fade-out
     if (prev) {
       setTimeout(() => container.removeChild(prev), 1000);
