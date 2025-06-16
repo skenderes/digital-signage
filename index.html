@@ -51,7 +51,7 @@
 
   function fadeOut(el, callback) {
     el.style.opacity = 0;
-    setTimeout(callback, 1000);
+    setTimeout(callback, 2000);
   }
 
   function next() {
@@ -98,7 +98,7 @@
         setTimeout(() => fadeOut(el, next), item.duration ?? 10000);
       }
 	  // 5) Clean up previous slide
-      if (prev) setTimeout(() => container.removeChild(prev), 1000);
+      if (prev) setTimeout(() => container.removeChild(prev), 2000);
 	}
 
   async function start() {
