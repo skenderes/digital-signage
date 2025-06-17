@@ -3,6 +3,10 @@
     "type": "video",
     "src": "assets/EES_Welcome.mp4"
   },
+ {
+    "type": "video",
+    "src": "assets/GoFurtherIUIndianapolis.mp4"
+  },
   {
     "type": "image",
     "src": "assets/GeoMonitor_S25.png",
