@@ -4,8 +4,9 @@
     "src": "assets/EES_Welcome.mp4"
   },
  {
-    "type": "video",
-    "src": "assets/GoFurtherIUIndianapolis.mp4"
+    "type": "iframe",
+    "src": "https://www.youtube.com/embed/i8RIw0QMiNk?autoplay=1&mute=1&cc_load_policy=1",
+    "duration": 150000
   },
   {
     "type": "image",
