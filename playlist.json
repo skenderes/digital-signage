@@ -20,7 +20,14 @@
   },
   {
     "type": "iframe",
-    "src": "https://player.vimeo.com/video/876191582?h=a319f0e889&badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&controls=0&title=0&byline=0&portrait=0&texttrack=en",
+    "src": "https://player.vimeo.com/video/876191582?h=a319f0e889"
+         + "&autoplay=1"
+         + "&muted=1"
+         + "&controls=0"
+         + "&title=0"
+         + "&byline=0"
+         + "&portrait=0"
+         + "&texttrack=en-x-autogen",
     "duration": 275000
   },
   {
