@@ -20,6 +20,11 @@
   },
   {
     "type": "image",
+    "src": "assets/GeoMonitor_Su25-2.png",
+    "duration": 10000
+  },
+  {
+    "type": "image",
     "src": "assets/GeoMonitor_Su25-1.png",
     "duration": 10000
   },
