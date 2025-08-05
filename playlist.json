@@ -37,5 +37,10 @@
     "type": "image",
     "src": "assets/GeoMonitor_S25-4.png",
     "duration": 10000
+ },
+  {
+    "type": "image",
+    "src": "assets/GeoMonitor_S25-5.png",
+    "duration": 10000
    }
 ]
