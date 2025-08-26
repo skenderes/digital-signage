@@ -3,6 +3,10 @@
     "type": "video",
     "src": "assets/EES_Welcome.mp4"
   },
+  {
+    "type": "video",
+    "src": "assets/F25_GradStudents.mp4"
+  },
  {
     "type": "iframe",
     "src": "https://www.youtube.com/embed/O-8PoXYfS68?si=xD3XHpaer97QyPWR&autoplay=1&mute=1&cc_load_policy=1&controls=0&modestbranding=1&showinfo=0&rel=0&playsinline=1",
