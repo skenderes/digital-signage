@@ -1,11 +1,7 @@
 [
   {
     "type": "video",
-    "src": "assets/EES_Welcome.mp4"
-  },
-  {
-    "type": "video",
-    "src": "assets/F25_GradStudents.mp4"
+    "src": "assets/BOT.mp4"
   },
   {
     "type": "iframe",
@@ -13,8 +9,21 @@
     "duration": 30000
   },
   {
+    "type": "image",
+    "src": "assets/SOS_EES.png",
+    "duration": 10000
+  },
+  {
     "type": "video",
     "src": "assets/SOS_Class.mp4"
+  },
+  {
+    "type": "video",
+    "src": "assets/EES_Welcome.mp4"
+  },
+  {
+    "type": "video",
+    "src": "assets/F25_GradStudents.mp4"
   },
   {
     "type": "image",
