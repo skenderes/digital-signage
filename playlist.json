@@ -26,6 +26,11 @@
     "src": "assets/GMVEarthquake.mp4"
   },
   {
+    "type": "image",
+    "src": "assets/ColloquiumAd.png",
+    "duration": 10000
+  },
+  {
     "type": "video",
     "src": "assets/F25_GradStudents.mp4"
   },
