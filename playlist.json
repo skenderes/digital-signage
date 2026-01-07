@@ -23,7 +23,12 @@
   },
   {
     "type": "video",
-    "src": "assets/GMVEarthquake.mp4"
+    "src": "assets/EES_Welcome.mp4"
+  },
+  {
+    "type": "iframe",
+    "src": "http://lightwidget.com/widgets/ee7478b2a3d3574ba598d0dca2a8c825.html"
+    "duration": 15000
   },
   {
     "type": "image",
