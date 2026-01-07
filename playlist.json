@@ -28,6 +28,7 @@
   {
     "type": "iframe",
     "src": "https://cdn.lightwidget.com/widgets/ee7478b2a3d3574ba598d0dca2a8c825.html",
+    "phone": true,
     "duration": 15000
   },
   {
