@@ -46,16 +46,8 @@
 	  }
 
 	.phone-notch {
-  		position: absolute;
-  		top: 6px;
-  		left: 50%;
-  		transform: translateX(-50%);
-  		width: 40%;
-  		height: 26px;
-  		background: #000;
-  		border-radius: 0 0 18px 18px;
-  		z-index: 2;
-	  }
+  		display: none;
+      }
 
 	/* Phone screen container */
 	.phone-screen {
@@ -139,9 +131,6 @@ async function showItem(i) {
     const phone = document.createElement('div');
     phone.className = 'phone-frame';
 
-    const notch = document.createElement('div');
-    notch.className = 'phone-notch';
-
     const screen = document.createElement('div');
     screen.className = 'phone-screen';
 
@@ -162,7 +151,6 @@ async function showItem(i) {
     // assemble DOM
     viewport.appendChild(iframe);
     screen.appendChild(viewport);
-    phone.appendChild(notch);
     phone.appendChild(screen);
     phone.appendChild(loader);
     el.appendChild(phone);
