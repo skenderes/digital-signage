@@ -91,15 +91,27 @@
   		align-items: center;
 	}
 
+	/* QR container: fixed square, centered content */
 	.social-left .qr-box {
-  		width: 160px;
-  		height: 160px;
-  		background: white;
-  		padding: 8px;
-  		border-radius: 12px;
-  		display: grid;
-  		place-items: center;
-  		box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+	  width: 160px;              /* outer white box size */
+	  height: 160px;
+	  padding: 8px;              /* inner padding */
+	  border-radius: 12px;
+	  background: #fff;
+	  display: grid;
+	  place-items: center;
+	  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+	  flex: 0 0 auto;            /* prevent flex from stretching the box */
+	  box-sizing: border-box;
+	  overflow: hidden;          /* make sure QR can't overflow */
+	}
+	
+	/* The inner element where QRCode writes the canvas/SVG */
+	.social-left .qr-box > div {
+	  width: 144px;              /* must match QR size below */
+	  height: 144px;
+	  display: block;
+	  line-height: 0;            /* avoid extra inline spacing */
 	}
 
 	.social-left .qr-caption {
