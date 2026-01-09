@@ -32,86 +32,86 @@
 	  .fade.visible {
 		opacity: 1;
 	  }
-/* Instagram phone mockup */
-	.phone-frame {
-  		height: 75vh;                 /* ← primary control */
-  		aspect-ratio: 9 / 15;         /* tall phone */
-  		max-width: 420px;             /* safety cap for large TVs */
-  		margin: auto;
-  		border-radius: 36px;
-  		background: #111;
-  		border: 10px solid #222;
-  		box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-  		overflow: hidden;
-  		position: relative;
-	  }
-
-	.phone-notch {
-  		display: none;
-      }
-
-	/* Phone screen container */
-	.phone-screen {
-  		position: absolute;
-  		inset: 0;
- 		padding-top: 36px;              /* space for notch */
-  		background: #f8f8f8;            /* non-black fallback */
-  		display: flex;
-  		justify-content: center;        /* center phone viewport horizontally */
-  		align-items: flex-start;        /* start content below notch */
-  		box-sizing: border-box;
-	   }
-
-	/* This wrapper forces a mobile viewport width */
-	.phone-viewport {
-  		width: 390px;                   /* forces mobile layout */
-  		max-width: 100%;
-  		height: 100%;
-	   }
-
-	/* iframe fills the simulated phone viewport */
-	.phone-viewport iframe {
-  		width: 100%;
-  		height: 100%;
-  		border: 0;
-  		background: transparent;
-  		display: block;
-  		
-  		/* Layout for social slide: left = content (text/QR), right = phone mockup */
-	.social-slide {
-  		box-sizing: border-box;
+	/* ===== social layout and phone (high-specificity, replace existing) ===== */
+	#container > .social-slide {
   		width: 100%;
   		height: 100%;
   		display: flex;
   		align-items: center;
   		justify-content: space-between;
   		gap: 3rem;
-  		padding: 4vh 6vw;     /* adjust spacing around the phone and text */
-  		background: transparent; /* keep slide background as is */
-	   }
+  		padding: 4vh 6vw;
+  		box-sizing: border-box;
+	}
 
-		/* left column: text/QR area */
-	.social-left {
-  		flex: 1 1 40%;             /* take available left space */
-  		min-width: 280px;          /* avoid collapsing on narrow screens */
+	/* left column for CTA/QR */
+	#container > .social-slide .social-left {
+  		flex: 1 1 46%;
+  		min-width: 280px;
   		height: 100%;
   		display: flex;
   		flex-direction: column;
   		justify-content: center;
-  		align-items: flex-start;   /* left-align text in this area */
+  		align-items: flex-start;
   		padding-left: 1rem;
-  		color: #ffffff;            /* default text color; change as needed */
-	   }
+ 		color: #fff;
+	}
 
-		/* right column: phone column */
-	.social-right {
+	/* right column holds the phone and forces its width */
+	#container > .social-slide .social-right {
   		flex: 0 0 auto;
-  		width: min(42vw, 520px);   /* match phone size logic (adjust if needed) */
+  		width: min(42vw, 520px);  /* control phone width */
   		display: flex;
   		justify-content: center;
   		align-items: center;
   		height: 100%;
-	   }
+  		box-sizing: border-box;
+	}
+
+	/* phone frame: height-driven sizing to avoid touching bottom */
+	#container > .social-slide .social-right .phone-frame {
+  		height: 68vh;               /* primary control: shorter phone */
+  		aspect-ratio: 9 / 18;       /* slightly wider visual ratio */
+  		max-width: 520px;
+  		margin: 0 auto;
+  		border-radius: 36px;
+  		background: #111;
+  		border: 10px solid #222;
+  		box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  		overflow: hidden;
+  		position: relative;
+  		display: flex;
+  		align-items: center;
+  		justify-content: center;
+	}
+
+	/* ensure phone screen & viewport behave predictably */
+	#container > .social-slide .phone-screen {
+  		position: absolute;
+  		inset: 0;
+  		padding-top: 18px;
+  		background: var(--phone-bg, #f8f8f8);
+  		display: flex;
+  		justify-content: center;
+  		align-items: flex-start;
+  		box-sizing: border-box;
+	}
+
+	#container > .social-slide .phone-viewport {
+  		width: 390px;
+  		max-width: 100%;
+  		height: calc(100% - 18px);
+  		box-sizing: border-box;
+	}
+
+	#container > .social-slide .phone-viewport iframe {
+  		width: 100%;
+  		height: 100%;
+  		border: 0;
+  		display: block;
+  		background: transparent;
+	}
+
 }
   </style>
 </head>
@@ -162,23 +162,24 @@ async function showItem(i) {
     el.onended = () => fadeOut(el, next);
   }
   else if (item.type === 'iframe' && item.phone === true) {
-  // outer slide container with left content + right phone
+  // outer slide container (left = content, right = phone)
   el = document.createElement('div');
   el.className = 'social-slide';
 
-  // left area reserved for text/QR (empty for now)
+  // left column (empty for now)
   const leftCol = document.createElement('div');
   leftCol.className = 'social-left';
-  // leave empty for now — we'll populate with text & QR in later steps
+  // you can later append text/QR into leftCol
 
-  // right area holds the phone mockup
+  // right column
   const rightCol = document.createElement('div');
   rightCol.className = 'social-right';
 
-  // build phone frame inside right column
+  // phone frame
   const phone = document.createElement('div');
   phone.className = 'phone-frame';
 
+  // phone notch (hidden if you removed notch styles)
   const notch = document.createElement('div');
   notch.className = 'phone-notch';
 
@@ -188,43 +189,44 @@ async function showItem(i) {
   const viewport = document.createElement('div');
   viewport.className = 'phone-viewport';
 
+  // iframe
   const iframe = document.createElement('iframe');
   iframe.src = item.src;
   iframe.loading = 'lazy';
   iframe.allow = 'encrypted-media; clipboard-write; picture-in-picture; web-share';
   iframe.style.background = 'transparent';
 
-  // small loader to avoid black flash
+  // optional loader
   const loader = document.createElement('div');
   loader.className = 'iframe-loader';
   loader.textContent = item.loadingText || 'Loading feed…';
 
-  // assemble phone
+  // assemble
   viewport.appendChild(iframe);
   screen.appendChild(viewport);
   phone.appendChild(notch);
   phone.appendChild(screen);
   phone.appendChild(loader);
 
-  // put phone into right column, and left column into the slide
   rightCol.appendChild(phone);
   el.appendChild(leftCol);
   el.appendChild(rightCol);
 
-  // loader removal on iframe load
+  // remove loader when iframe loads
   iframe.addEventListener('load', () => {
     setTimeout(() => {
       if (loader && loader.parentNode) loader.parentNode.removeChild(loader);
     }, 300);
   });
 
-  // fallback log if not loaded
+  // safety fallback
   setTimeout(() => {
     if (loader && loader.parentNode) {
       console.warn('Instagram iframe still not loaded after timeout');
     }
   }, 8000);
 }
+
 
   else if (item.type === 'iframe') {
     el = document.createElement('iframe');
