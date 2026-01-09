@@ -325,6 +325,7 @@ async function showItem(i) {
 	try {
 	  // small delay so the DOM is ready (leftCol is appended earlier)
 	  setTimeout(() => {
+		const followUrl = item.followUrl || 'https://www.instagram.com/iuiearth.env.sciences/';
 		const qrTarget = document.getElementById(qrId);
 		if (qrTarget && window.QRCode) {
 		  // clear any previous content (defensive)
