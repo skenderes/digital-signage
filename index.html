@@ -56,6 +56,63 @@
   		padding-left: 1rem;
  		color: #fff;
 	}
+	/* Left column typography + QR box */
+	.social-left .cta-title {
+  		font: 700 2.1rem/1.05 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  		color: #ffffff;
+  		margin: 0 0 0.5rem 0;
+	}
+
+	.social-left .cta-sub {
+  		font: 500 1.1rem/1.4 system-ui, sans-serif;
+  		color: #e6e6e6;
+  		margin: 0 0 1.25rem 0;
+  		max-width: 46ch;
+	}
+
+	/* CTA button style (non-clickable visual for signage) */
+	.social-left .cta-btn {
+  		display: inline-block;
+  		padding: 0.6rem 1rem;
+  		border-radius: 10px;
+  		background: linear-gradient(180deg,#ff5a5f,#e04347);
+  		color: white;
+  		font-weight: 700;
+  		text-decoration: none;
+  		margin-bottom: 1.25rem;
+  		box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+	}
+
+	/* QR area */
+	.social-left .qr-area {
+  		display: flex;
+  		gap: 1rem;
+  		align-items: center;
+	}
+
+	.social-left .qr-box {
+  		width: 160px;
+  		height: 160px;
+  		background: white;
+  		padding: 8px;
+  		border-radius: 12px;
+  		display: grid;
+  		place-items: center;
+  		box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+	}
+
+	.social-left .qr-caption {
+  		color: #ddd;
+  		font: 600 1rem/1.2 system-ui, sans-serif;
+  		max-width: 18rem;
+	}
+
+	/* small responsiveness: reduce sizes on narrow screens */
+	@media (max-width: 800px) {
+ 		.social-left .cta-title { font-size: 1.6rem; }
+  		.social-left .qr-box { width: 120px; height: 120px; }
+	}
+
 
 	/* right column holds the phone and forces its width */
 	#container > .social-slide .social-right {
@@ -169,7 +226,46 @@ async function showItem(i) {
   // left column (empty for now)
   const leftCol = document.createElement('div');
   leftCol.className = 'social-left';
-  // you can later append text/QR into leftCol
+
+	const title = document.createElement('h1');
+	title.className = 'cta-title';
+	title.textContent = item.ctaTitle || 'Follow the Department on Instagram';
+
+	const sub = document.createElement('div');
+	sub.className = 'cta-sub';
+	sub.textContent = item.ctaSub || 'See our latest news, events, and student highlights. Scan the QR to follow us.';
+
+	const btn = document.createElement('div');
+	btn.className = 'cta-btn';
+	btn.textContent = item.ctaButtonText || 'Follow @YourDept';
+
+	// QR area
+	const qrArea = document.createElement('div');
+	qrArea.className = 'qr-area';
+
+	const qrBox = document.createElement('div');
+	qrBox.className = 'qr-box';
+	// give the QR div an id unique to this slide so multiple slides won't collide
+	const qrId = 'qr-' + Math.floor(Math.random() * 1e9);
+	const qrInner = document.createElement('div');
+	qrInner.id = qrId;
+
+	qrBox.appendChild(qrInner);
+
+	// caption next to QR
+	const qcap = document.createElement('div');
+	qcap.className = 'qr-caption';
+	qcap.textContent = item.qrCaption || 'Scan to follow us on Instagram';
+
+	qrArea.appendChild(qrBox);
+	qrArea.appendChild(qcap);
+
+	// append content to leftCol
+	leftCol.appendChild(title);
+	leftCol.appendChild(sub);
+	leftCol.appendChild(btn);
+	leftCol.appendChild(qrArea);
+
 
   // right column
   const rightCol = document.createElement('div');
@@ -211,6 +307,31 @@ async function showItem(i) {
   rightCol.appendChild(phone);
   el.appendChild(leftCol);
   el.appendChild(rightCol);
+  
+	  // Create QR code for this slide (use item.followUrl or default)
+	const followUrl = item.followUrl || 'https://www.instagram.com/YourDept/';
+	
+	// Try to create QR (QRCode library must be loaded on the page)
+	try {
+	  // small delay so the DOM is ready (leftCol is appended earlier)
+	  setTimeout(() => {
+		const qrTarget = document.getElementById(qrId);
+		if (qrTarget && window.QRCode) {
+		  // clear any previous content (defensive)
+		  qrTarget.innerHTML = '';
+		  new QRCode(qrTarget, {
+			text: followUrl,
+			width: 144, height: 144,
+			correctLevel: QRCode.CorrectLevel.M
+		  });
+		} else {
+		  console.warn('QR target not found or QRCode lib missing', qrId);
+		}
+	  }, 100);
+	} catch (e) {
+	  console.warn('QR generation failed', e);
+	}
+
 
   // remove loader when iframe loads
   iframe.addEventListener('load', () => {
