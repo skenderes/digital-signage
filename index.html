@@ -322,8 +322,12 @@ async function showItem(i) {
   el.appendChild(rightCol);
   
 	  // Create QR code for this slide (use item.followUrl or default)
+	// after fade-in / append of el
 	const followUrl = item.followUrl || 'https://www.instagram.com/YourDept/';
-	
+	ensureAndCreateQR(qrId, followUrl, { size: 144 }).catch(err => {
+	  console.warn('QR target not found or QRCode lib missing', qrId, err);
+	});
+
 	// Try to create QR (QRCode library must be loaded on the page)
 	try {
 	  // small delay so the DOM is ready (leftCol is appended earlier)
