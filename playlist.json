@@ -5,6 +5,17 @@
   },
   {
     "type": "iframe",
+    "src": "https://cdn.lightwidget.com/widgets/ee7478b2a3d3574ba598d0dca2a8c825.html",
+    "phone": true,
+    "duration": 15000,
+    "ctaTitle": "Follow Earth and Environmental Sciences at IU Indianapolis",
+	"ctaSub": "Photos, events, and student work. Keep up with our latest updates.",
+	"ctaButtonText": "Follow @iui.earth.env.sciences",
+	"followUrl": "https://www.instagram.com/iuiearth.env.sciences/",
+	"qrCaption": "Scan to follow us on Instagram"
+  },
+  {
+    "type": "iframe",
     "src": "https://www.youtube.com/embed/O-8PoXYfS68?si=xD3XHpaer97QyPWR&autoplay=1&mute=1&cc_load_policy=1&controls=0&modestbranding=1&showinfo=0&rel=0&playsinline=1",
     "duration": 30000
   },
