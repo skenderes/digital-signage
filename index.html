@@ -185,8 +185,42 @@
   		display: block;
   		background: transparent;
 	}
+	/* === FINAL COLOR THEMING FOR SOCIAL SLIDE === */
 
-}
+	/* Entire slide background (optional safety) */
+	#container > .social-slide {
+	  background: transparent;
+	}
+	
+	/* Left column: white background with black text */
+	#container > .social-slide .social-left {
+	  background: #ffffff;
+	  color: #000000;
+	  padding: 3rem;
+	  border-radius: 16px; /* optional: soft edge */
+	}
+	
+	/* Ensure all left-column text is black */
+	#container > .social-slide .social-left .cta-title,
+	#container > .social-slide .social-left .cta-sub,
+	#container > .social-slide .social-left .qr-caption {
+	  color: #000000;
+	}
+	
+	/* Optional: adjust CTA button to match crimson theme */
+	#container > .social-slide .social-left .cta-btn {
+	  background: #990000;
+	  color: #ffffff;
+	}
+	
+	/* Right column: crimson background behind the phone */
+	#container > .social-slide .social-right {
+	  background: #990000;
+	  padding: 3rem;
+	  border-radius: 16px; /* optional: soft edge */
+	}
+	
+	}
   </style>
 </head>
 <body>
