@@ -112,8 +112,8 @@
 	
 	/* The inner element where QRCode writes the canvas/SVG */
 	.social-left .qr-box > div {
-	  width: 144px;              /* must match QR size below */
-	  height: 144px;
+	  width: 220px;              /* must match QR size below */
+	  height: 220px;
 	  display: block;
 	  line-height: 0;            /* avoid extra inline spacing */
 	}
@@ -219,8 +219,54 @@
 	  padding: 3rem;
 	  border-radius: 16px; /* optional: soft edge */
 	}
-	
+	/* === SCALE UP LEFT COLUMN CONTENT (TV-OPTIMIZED) === */
+
+	/* Headline: significantly larger */
+	#container > .social-slide .social-left .cta-title {
+	  font-size: 4rem;        /* was ~2.1rem */
+	  line-height: 1.05;
 	}
+	
+	/* Subtext: larger and easier to read from distance */
+	#container > .social-slide .social-left .cta-sub {
+	  font-size: 2.1rem;      /* was ~1.1rem */
+	  line-height: 1.35;
+	  max-width: 40ch;
+	}
+	
+	/* CTA button: larger and more prominent */
+	#container > .social-slide .social-left .cta-btn {
+	  font-size: 1.8rem;
+	  padding: 1rem 1.5rem;
+	  border-radius: 14px;
+	}
+	
+	/* QR area spacing */
+	#container > .social-slide .social-left .qr-area {
+	  gap: 2rem;
+	  margin-top: 2rem;
+	}
+	
+	/* Bigger QR container */
+	#container > .social-slide .social-left .qr-box {
+	  width: 260px;           /* was 160px */
+	  height: 260px;
+	  padding: 12px;
+	}
+	
+	/* Bigger QR image itself */
+	#container > .social-slide .social-left .qr-box > div {
+	  width: 220px;           /* was 144px */
+	  height: 220px;
+	}
+	
+	/* QR caption text */
+	#container > .social-slide .social-left .qr-caption {
+	  font-size: 1.6rem;
+	  line-height: 1.25;
+	}
+	
+}
   </style>
 </head>
 <body>
