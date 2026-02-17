@@ -14,8 +14,9 @@
     "duration": 10000
   },
   {
-    "type": "video",
-    "src": "assets/SOS_Class.mp4"
+    "type": "image",
+    "src": "assets/SOS_Preps.png",
+    "duration": 10000
   },
   {
     "type": "video",
@@ -74,10 +75,5 @@
     "type": "image",
     "src": "assets/GeoMonitor_F25-2.png",
     "duration": 10000
-  },
-  {
-    "type": "image",
-    "src": "assets/GeoMonitor_S25-2.png",
-    "duration": 10000
- }
+  }
 ]
