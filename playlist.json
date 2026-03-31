@@ -38,12 +38,13 @@
     "duration": 10000
   },
   {
-    "type": "video",
-    "src": "assets/F25_GradStudents.mp4"
-  },
-  {
     "type": "image",
     "src": "assets/LMP.png",
+    "duration": 10000
+  },
+    {
+    "type": "image",
+    "src": "assets/GeoMonitor_S26-1.png",
     "duration": 10000
   },
   {
@@ -59,16 +60,6 @@
   {
     "type": "image",
     "src": "assets/GeoMonitor_F25-4.png",
-    "duration": 10000
-  },
-  {
-    "type": "image",
-    "src": "assets/GeoMonitor_F25-1.png",
-    "duration": 10000
-  },
-  {
-    "type": "image",
-    "src": "assets/GeoMonitor_F25-2.png",
     "duration": 10000
   }
 ]
