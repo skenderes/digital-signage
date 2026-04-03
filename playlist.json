@@ -18,6 +18,11 @@
     "src": "assets/EES_Welcome.mp4"
   },
   {
+    "type": "iframe",
+    "src": "https://www.youtube.com/embed/6RwfNBtepa4?si=xvgHGZq3fhhuN22z&autoplay=1&mute=1&cc_load_policy=1&controls=0&modestbranding=1&showinfo=0&rel=0&playsinline=1",
+    "duration": 10000
+  },
+  {
     "type": "video",
     "src": "assets/GMVEarthquake.mp4"
   },
