@@ -18,9 +18,30 @@
     "src": "assets/EES_Welcome.mp4"
   },
   {
-    "type": "video",
-    "src": "assets/GMVEarthquake.mp4"
+    "type": "image",
+    "src": "assets/Grad1.png",
+    "duration": 10000
   },
+  {
+    "type": "image",
+    "src": "assets/Grad2.png",
+    "duration": 10000
+  },
+    {
+    "type": "image",
+    "src": "assets/Grad3.png",
+    "duration": 10000
+  },
+  {
+    "type": "image",
+    "src": "assets/Grad4.png",
+    "duration": 10000
+  },  
+  {
+    "type": "image",
+    "src": "assets/Grad5.png",
+    "duration": 10000
+  },  
   {
     "type": "iframe",
     "src": "https://cdn.lightwidget.com/widgets/ee7478b2a3d3574ba598d0dca2a8c825.html",
