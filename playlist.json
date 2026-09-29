@@ -40,12 +40,17 @@
   },
   {
     "type": "image",
-    "src": "assets/EES_F26-1.png",
+    "src": "assets/EES_F26-3.png",
     "duration": 10000
   },
   {
     "type": "image",
     "src": "assets/EES_F26-2.png",
+    "duration": 10000
+  },
+  {
+    "type": "image",
+    "src": "assets/EES_F26-1.png",
     "duration": 10000
   },
   {
